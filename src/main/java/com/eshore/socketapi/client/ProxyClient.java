@@ -23,6 +23,7 @@ public class ProxyClient {
 		server.setToken("1");
 		gw.addClientWorker(server);
 		server.login();
+		server.setReConnect(true);
 		
 	}
 }

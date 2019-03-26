@@ -30,7 +30,7 @@ public class TunnelClientWorker extends ClientWorker{
 		ip=s.getInetAddress().getHostAddress();
 		port=s.getPort();
 		//System.out.println("accepet:"+ip+":"+port);
-		this.reConnect=true;
+		//this.reConnect=true;
 		try {
 			in=s.getInputStream();
 			out=s.getOutputStream();
