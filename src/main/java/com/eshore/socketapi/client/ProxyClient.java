@@ -14,12 +14,15 @@ public class ProxyClient {
 	//static ClientHandler handle= new ClientHandler();
 	
 	public ProxyClient(){}
-	ClientWorker server;
+	TunnelClientWorker server;
 	public ProxyClient(String ip,int port,GlobWorker gw) throws UnknownHostException, IOException{
 		Socket s = new Socket(ip,port);
 		ClientHandler handle= new ClientHandler(gw);
 		server =new TunnelClientWorker( s, handle,sproto,gw);
+		server.setId("default");
+		server.setToken("1");
 		gw.addClientWorker(server);
-		server.Call(new TunnelAction(5,"id=default;token=1".getBytes()));
+		server.login();
+		
 	}
 }

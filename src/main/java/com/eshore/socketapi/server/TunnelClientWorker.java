@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import com.eshore.socketapi.commons.Action;
 import com.eshore.socketapi.commons.IProtocol;
+import com.eshore.socketapi.commons.TunnelAction;
 /**
  * 每个一个连接对应一个这样的独立worker
  * @author eshore
@@ -29,6 +30,7 @@ public class TunnelClientWorker extends ClientWorker{
 		ip=s.getInetAddress().getHostAddress();
 		port=s.getPort();
 		//System.out.println("accepet:"+ip+":"+port);
+		this.reConnect=true;
 		try {
 			in=s.getInputStream();
 			out=s.getOutputStream();
@@ -37,6 +39,44 @@ public class TunnelClientWorker extends ClientWorker{
 		}
 	}
 
+	private String id="default";
+	private String token="";
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getToken() {
+		return token;
+	}
+
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
+	public void login(){
+		Call(new TunnelAction(5,("id="+id+";token="+token).getBytes()));
+	}
+
+	
+	
+	@Override
+	public boolean reConnct() {
+		if(super.reConnct()){
+			this.login();
+			return true;
+		}
+		return false;
+	}
 
 
 	public boolean pingClient(){
