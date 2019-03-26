@@ -71,10 +71,13 @@ public class TunnelClientWorker extends ClientWorker{
 	
 	@Override
 	public boolean reConnct() {
+		//System.out.println("==reConnect==");
 		if(super.reConnct()){
 			this.login();
+			System.out.println("reconnected!");
 			return true;
 		}
+		System.out.println("reconnect failed!");
 		return false;
 	}
 
@@ -88,6 +91,7 @@ public class TunnelClientWorker extends ClientWorker{
 			lastPing=t;
 			return true;
 		} catch (IOException e) {
+			 //reConnct();
 			return false;
 		}
 	}

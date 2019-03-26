@@ -45,7 +45,7 @@ public class GlobWorker {
 		private static ArrayList<ClientWorker> removeNotavailable(List<ClientWorker>  list){
 			ArrayList<ClientWorker>list2 = new ArrayList<ClientWorker>();
 			for(ClientWorker w:list){
-				if(w.isAvailable())list2.add(w);
+				if(w.isAvailable()||w.isKeepWhileBreak())list2.add(w);
 				else{
 					System.out.println("client exit ! ip:"+w.ip+":"+w.port);
 				}

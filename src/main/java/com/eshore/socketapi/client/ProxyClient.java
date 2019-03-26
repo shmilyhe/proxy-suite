@@ -24,6 +24,7 @@ public class ProxyClient {
 		gw.addClientWorker(server);
 		server.login();
 		server.setReConnect(true);
+		server.setKeepWhileBreak(true);
 		
 	}
 }

@@ -27,6 +27,10 @@ public class ClientWorker {
 		this.port = port;
 	}
 	ClientWorker outClinet;
+	
+	//当连接已断开是否保持不回收，true 则不回收
+	private boolean keepWhileBreak=false;
+	
 	public ClientWorker getOutClinet() {
 		return outClinet;
 	}
@@ -234,10 +238,17 @@ public class ClientWorker {
 		if(!toggleWork(true))return false;
 		//working=true;
 		if(!available||s.isClosed()||!pingClient()){
+			if(isReConnect()&&reConnct()){
+				available=true;
+				toggleWork(false);
+				return true;
+			}
+			
 			if(available==true){
 				server.dropOneClient();
 				sendError(null,this);
 			}
+			
 			available=false;
 			toggleWork(false);
 			//working=false;
@@ -287,5 +298,11 @@ public class ClientWorker {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public boolean isKeepWhileBreak() {
+		return keepWhileBreak;
+	}
+	public void setKeepWhileBreak(boolean keepWhileBreak) {
+		this.keepWhileBreak = keepWhileBreak;
 	}
 }
