@@ -43,18 +43,23 @@ public interface Cache<K, V> {
 
 	/**
 	 * 获取缓存值
-	 * @param k
-	 * @return
+	 * @param k key
+	 * @return value
 	 */
 	public V get(K k);
 	
 	/**
 	 * 
-	 * @param k
-	 * @return
+	 * @param k key
+	 * @return value
 	 */
 	public V remove(K k);
 	
+	/**
+	 * 
+	 * @param key
+	 * @return isContains
+	 */
 	public boolean containsKey(Object key);
 
 }

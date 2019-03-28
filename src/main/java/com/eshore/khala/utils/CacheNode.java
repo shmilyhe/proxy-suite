@@ -98,7 +98,7 @@ public class CacheNode<K,V> {
 	
 	/**
 	 * 手插到 n 节点前面
-	 * @param n
+	 * @param n node
 	 */
 	public void insertBefore(CacheNode n){
 		next =n;
@@ -108,7 +108,7 @@ public class CacheNode<K,V> {
 	
 	/**
 	 * 连接到 n 节点之后
-	 * @param n
+	 * @param n node
 	 */
 	public void appendTo(CacheNode n){
 		
@@ -125,7 +125,7 @@ public class CacheNode<K,V> {
 	
 	/**
 	 * 获取 键值
-	 * @return
+	 * @return key
 	 */
 	public K getKey(){
 		return key;
@@ -141,7 +141,7 @@ public class CacheNode<K,V> {
 	
 	/**
 	 * 获取值
-	 * @return
+	 * @return value
 	 */
 	public V getValue(){
 		if(removed)return null;
@@ -166,13 +166,18 @@ public class CacheNode<K,V> {
 
 	/**
 	 * 是否已移除
-	 * @return
+	 * @return is removed
 	 */
 	public boolean isRemoved() {
 		return removed;
 	}
 
+	
 
+	/**
+	 * 
+	 * @param removed is remove
+	 */
 	public void setRemoved(boolean removed) {
 		this.removed = removed;
 	}

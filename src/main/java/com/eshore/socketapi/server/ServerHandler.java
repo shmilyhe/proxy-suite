@@ -19,7 +19,7 @@ public interface ServerHandler {
 	
 	/**
 	 * 当发生错误时
-	 * @param a
+	 * @param a action
 	 * @param worker
 	 */
 	void onError(Action a,ClientWorker worker);

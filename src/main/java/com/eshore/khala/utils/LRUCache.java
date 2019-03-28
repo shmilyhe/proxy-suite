@@ -233,7 +233,7 @@ import java.util.concurrent.Executors;
     	/**
     	 * 获取缓存值
     	 * @param k
-    	 * @return
+    	 * @return value
     	 */
     	public V get(K k) {
     		CacheNode<K, V> n = cache.get(k);
@@ -244,7 +244,7 @@ import java.util.concurrent.Executors;
 
     	/**
     	 * 获取所有的key
-    	 * @return
+    	 * @return keys
     	 */
     	public Collection<K> keys() {
     		return cache.keySet();

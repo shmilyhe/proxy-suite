@@ -18,16 +18,16 @@ public interface Hash {
 	
 	/**
 	 * 更新散列
-	 * @param bytes
-	 * @param off
-	 * @param len
+	 * @param bytes inputdata
+	 * @param off start
+	 * @param len len
 	 */
 	void write(byte[] bytes ,int off,int len);
 	
 	/**
 	 * 计算散列结果
 	 * @param bytes
-	 * @return
+	 * @return result
 	 */
 	byte[] sum(byte[] bytes);
 	
@@ -36,14 +36,14 @@ public interface Hash {
 	
 	/**
 	 * 分割的块大小
-	 * @return
+	 * @return block size
 	 */
 	int blockSize();
 	
 	/**
 	 * 获取一个新的实例
 	 * 避免工厂模式构建过多的工厂，直接从实例中创建
-	 * @return
+	 * @return instance
 	 */
 	Hash getHash();
 }

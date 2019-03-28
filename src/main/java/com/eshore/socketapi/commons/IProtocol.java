@@ -13,15 +13,16 @@ import java.io.OutputStream;
 public interface IProtocol {
 	/**
 	 * 从流中读取事件
-	 * @param ins
-	 * @return
+	 * @param ins input
+	 * @return Action
 	 */
 	Action read(InputStream ins);
 	
 	/**
 	 * 往流中写Action
-	 * @param ins
-	 * @param action
+	 * @param out output
+	 * @param action the action to write
+	 * @throws IOException
 	 */
 	void write (OutputStream out,Action action)throws IOException;
 }
