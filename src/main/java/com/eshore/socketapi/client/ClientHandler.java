@@ -8,6 +8,7 @@ import com.eshore.socketapi.commons.Action;
 import com.eshore.socketapi.commons.IProtocol;
 import com.eshore.socketapi.commons.RawProtocol;
 import com.eshore.socketapi.commons.TunnelAction;
+import com.eshore.socketapi.commons.TunnelOverSnappyProtocol;
 import com.eshore.socketapi.commons.TunnelProtocol;
 import com.eshore.socketapi.server.ClientWorker;
 import com.eshore.socketapi.server.GlobWorker;
@@ -15,16 +16,22 @@ import com.eshore.socketapi.server.ServerHandler;
 import com.eshore.socketapi.server.TunnelClientWorker;
 
 public class ClientHandler implements ServerHandler {
-	static IProtocol sproto=new TunnelProtocol();
+	 IProtocol sproto=new TunnelProtocol();
 	static IProtocol dproto=new RawProtocol();
 
 	public ClientHandler(){}
 	GlobWorker gw;
 	FinalHandler finalhandler;
-	public ClientHandler(GlobWorker gw){
+	public ClientHandler(GlobWorker gw,TunnelProtocol p){
 		this.gw=gw;
 		finalhandler=new FinalHandler(gw);
+		sproto=p;
 	}
+	
+	public ClientHandler(GlobWorker gw){
+		this(gw,new TunnelOverSnappyProtocol());
+	}
+	
 	
 	@Override
 	public Action handle(Action a, ClientWorker worker) {

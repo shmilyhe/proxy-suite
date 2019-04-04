@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.eshore.socketapi.commons.RawProtocol;
 import com.eshore.socketapi.commons.TunnelAction;
+import com.eshore.socketapi.commons.TunnelOverSnappyProtocol;
 import com.eshore.socketapi.commons.TunnelProtocol;
 
 public class InnerServer {
@@ -15,9 +16,8 @@ public class InnerServer {
 
 	}
 
-	public InnerServer(int outPort,final GlobWorker gw) throws IOException{
+	public InnerServer(int outPort,final GlobWorker gw,final TunnelProtocol p) throws IOException{
 		System.out.println("starting Inner  Service...");
-		TunnelProtocol p = new TunnelProtocol();
 		final ServerSocket s = new ServerSocket(outPort);
 		ServerHandler hadler = new CommandHandler();
 		Thread accepter = new Thread(){
@@ -41,6 +41,9 @@ public class InnerServer {
 		accepter.setDaemon(true);
 		accepter.start();
 		System.out.println("done.");
+	}
+	public InnerServer(int outPort,final GlobWorker gw) throws IOException{
+		this(outPort,gw,new TunnelOverSnappyProtocol());
 	}
 
 }

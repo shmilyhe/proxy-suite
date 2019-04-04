@@ -6,7 +6,7 @@
 	<artifactId>proxy-suite</artifactId>
 	<version>1.2.1</version>
 	<packaging>jar</packaging>
-   <description>a Intranet-through project</description>
+	<description>a Intranet-through project</description>
 	<name>io.github.shmilyhe:proxy-suite</name>
 	<url>https://github.com/shmilyhe/proxy-suite</url>
 
@@ -17,31 +17,31 @@
 		<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
 	</properties>
 	<licenses>
-  <license>
-    <name>GNU General Public License v2.0</name>
-    <url>http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</url>
-    <distribution>repo</distribution>
-    <comments>GNU General Public License v2.0</comments>
-  </license>
-</licenses>
-<developers>
-    <developer>
-      <name>eric</name>
-      <email>shmilyhe@163.com</email>
-      <organization>70mm.cn</organization>
-      <organizationUrl>www.70mm.cn</organizationUrl>
-    </developer>
-  </developers>
-<scm>
-      <connection>
+		<license>
+			<name>GNU General Public License v2.0</name>
+			<url>http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>GNU General Public License v2.0</comments>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>eric</name>
+			<email>shmilyhe@163.com</email>
+			<organization>70mm.cn</organization>
+			<organizationUrl>www.70mm.cn</organizationUrl>
+		</developer>
+	</developers>
+	<scm>
+		<connection>
          scm:git:https://github.com/shmilyhe/proxy-suite.git
       </connection>
-      <developerConnection>
+		<developerConnection>
          scm:git:https://github.com/shmilyhe/proxy-suite.git
       </developerConnection>
-      <url>https://github.com/shmilyhe/proxy-suite</url>
-     <tag>v1.12</tag>
-  </scm>
+		<url>https://github.com/shmilyhe/proxy-suite</url>
+		<tag>v1.12</tag>
+	</scm>
 
 	<dependencies>
 		<dependency>
@@ -49,6 +49,11 @@
 			<artifactId>junit</artifactId>
 			<version>4.1</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.xerial.snappy</groupId>
+			<artifactId>snappy-java</artifactId>
+			<version>1.1.7.2</version>
 		</dependency>
 	</dependencies>
 	<distributionManagement>
