@@ -105,6 +105,10 @@ public class TunnelProtocol implements IProtocol {
 	public void write(OutputStream out, Action action)throws IOException {
 		// TODO Auto-generated method stub
 		TunnelAction ta =(TunnelAction)action;
+		if(ta==null){
+			System.out.println("empty action:");
+			return;
+		}
 		out.write(ta.type);
 		byte b[]=ta.getDatas();
 		//System.out.println("ta:"+new String(ta.getDatas()));

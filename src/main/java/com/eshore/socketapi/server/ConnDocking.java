@@ -15,6 +15,17 @@ public class ConnDocking extends Docking {
 		out.setOutClinet(in);
 		in.setOutClinet(out);
 		gw.addClientWorker(getOut());
+		this.setConnected(true);
 	}
+	
+	@Override
+	public void doTimeOut() {
+		if(isConnected())return;
+		this.setConnected(true);
+		getOut().close();
+		System.out.println("====time out===");
+	}
+	
+	
 
 }

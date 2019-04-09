@@ -8,7 +8,8 @@ public class TunnelAction extends Action {
 			"a",//active 3
 			"u",//unknow 4
 			"l",//login 5
-			"s" //shutdown 6
+			"s", //shutdown 6
+			"f" //connect failed 7
 	};
 	int type;
 	public TunnelAction(int type,byte[] data){

@@ -49,6 +49,7 @@ public class ClientHandler implements ServerHandler {
 				//Socket s,ServerHandler h,IProtocol protocol,GlobWorker server
 				ClientWorker cw = new TunnelClientWorker(s,this,dproto,gw);
 				cw.setName("final");
+				cw.setDockid(datas[2]);
 				gw.addClientWorker(cw);
 				//cw.setReConnect(true);
 				//System.out.println(worker.getIp()+"---"+worker.getPort());
@@ -66,6 +67,16 @@ public class ClientHandler implements ServerHandler {
 				
 			} catch (IOException e) {
 				System.out.println(datas[0]+"=="+datas[1]);
+				try{
+					Socket ss= new Socket(worker.getIp(),worker.getPort());
+					ss.setOOBInline(false);
+					ClientWorker sw = new TunnelClientWorker(ss,this,sproto,gw);
+				
+					sw.setName("client-doc");
+					TunnelAction ta = new TunnelAction(7,datas[2].getBytes());
+					//System.out.println("act:"+datas[2]);
+					sw.Call(ta);
+				}catch(Exception ex){}
 				e.printStackTrace();
 			}
 		}else if("d".equals(url)){

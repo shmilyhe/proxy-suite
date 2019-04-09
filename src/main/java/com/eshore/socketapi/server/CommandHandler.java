@@ -20,13 +20,23 @@ public class CommandHandler implements ServerHandler {
 			return a;
 		} else if("c".equals(a.getAction())){
 			String id=new String(a.getDatas());
-			//System.out.println("doc:"+id);
+			
 			Docking doc =	Docking.getDocking(id);
 			doc.out.setHoldding(false);
 			worker.setName("inner-doc");
 			doc.setIn(worker);
 			doc.run();
-		} else if("l".equals(a.getAction())){
+			//System.out.println("doc:"+id);
+		} else if("f".equals(a.getAction())){
+			String id=new String(a.getDatas());
+			//System.out.println("fdoc:"+id);
+			Docking doc =	Docking.getDocking(id);
+			doc.doTimeOut();
+			//doc.out.setHoldding(false);
+			//worker.setName("inner-doc");
+			//doc.setIn(worker);
+			//doc.run();
+		}  else if("l".equals(a.getAction())){
 			String data =new String(a.getDatas());
 			String[] p=data.split(";");
 			String id=null;

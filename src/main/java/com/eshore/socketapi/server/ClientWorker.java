@@ -39,6 +39,7 @@ public class ClientWorker {
 	}
 	
 	boolean holdding;
+	private String dockid;
 	
 	public boolean isHoldding() {
 		return holdding;
@@ -111,7 +112,7 @@ public class ClientWorker {
 		try {out.close();} catch (IOException e) {}
 		try {s.close();} catch (IOException e) {}
 		available=false;
-		System.out.println("["+name+"] closed");
+		System.out.println("["+name+"] closed dockid:"+dockid);
 	}
 
 
@@ -228,7 +229,29 @@ public class ClientWorker {
 	
 	
 
+	/**
+	 * 当前队列位置
+	 */
+	private int qindex =0;
+	//缓存10个队列元素，超出10个直接报错
+	private void queueAction(Action a){
+		if(respQueue==null)respQueue= new Action[10];
+		respQueue[qindex++]=a;
+	}
 	
+	
+	private void flushOutQueue(){
+		if(qindex==0)return;
+		ClientWorker c = this.getOutClinet();
+		if(c==null)return ;
+		for(Action a:respQueue){
+			c.Call(a);
+		}
+		respQueue=null;
+		qindex=0;
+	}
+	
+	private Action[] respQueue=null; 
 	/**
 	 * 处理接收的数据
 	 * @return
@@ -254,6 +277,8 @@ public class ClientWorker {
 			//working=false;
 			return false;
 		}
+		//先处理队列的数据
+		flushOutQueue();
 		Action a =null;
 		try {
 			int av =in.available();
@@ -271,9 +296,14 @@ public class ClientWorker {
 				}else{
 					ClientWorker c = this.getOutClinet();
 					//System.out.println(c.ip);
-					if(c!=null)
-					if(!c.Call(response)){
+					if(c!=null){
+						if(!c.Call(response)){
 						sendError(a,this);
+						}
+					}else{
+						//当还没有完成对接时，先队列缓存
+						queueAction(response);
+						//System.out.println("[error]=============missing outter"+this.getName());
 					}
 					//c.protocol.write(c.out, response);
 					
@@ -304,5 +334,11 @@ public class ClientWorker {
 	}
 	public void setKeepWhileBreak(boolean keepWhileBreak) {
 		this.keepWhileBreak = keepWhileBreak;
+	}
+	public String getDockid() {
+		return dockid;
+	}
+	public void setDockid(String dockid) {
+		this.dockid = dockid;
 	}
 }
