@@ -106,7 +106,7 @@ public class TunnelProtocol implements IProtocol {
 		// TODO Auto-generated method stub
 		TunnelAction ta =(TunnelAction)action;
 		if(ta==null){
-			System.out.println("empty action:");
+			//System.out.println("empty action:");
 			return;
 		}
 		out.write(ta.type);

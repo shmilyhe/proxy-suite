@@ -66,7 +66,7 @@ public class Docking {
 	
 	public static Docking getDocking(String id){
 		Docking doc = cache.get(id);
-		if(doc==null)System.out.println("==============find empty=============");
+		if(doc==null)System.out.println("==============find empty============="+id);
 		return doc;
 	}
 	
