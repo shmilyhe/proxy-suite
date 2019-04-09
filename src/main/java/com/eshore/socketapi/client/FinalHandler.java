@@ -34,6 +34,7 @@ public class FinalHandler implements ServerHandler {
 			byte[] data=a.getDatas();
 			String[] datas=new String(data).split(":");
 			try {
+				System.out.println("c:"+datas[2]);
 				Socket s = new Socket(datas[0],Integer.parseInt(datas[1]));
 				s.setOOBInline(false);
 				//s.sendUrgentData(data);
