@@ -112,7 +112,7 @@ public class ClientWorker {
 		try {out.close();} catch (IOException e) {}
 		try {s.close();} catch (IOException e) {}
 		available=false;
-		System.out.println("["+name+"] closed dockid:"+dockid);
+		//System.out.println("["+name+"] closed dockid:"+dockid);
 	}
 
 
