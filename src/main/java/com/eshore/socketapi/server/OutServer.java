@@ -42,7 +42,7 @@ public class OutServer implements Closeable{
 						cdk.setSocket(socket);*/
 						ConnDocking.addDocking(cdk);
 						//cdk.
-						System.out.println("acc:"+conid);
+						//System.out.println("acc:"+conid);
 						client.Call(ta);
 						
 						//gw.addClientWorker(new ClientWorker(socket,hadler,p,gw));

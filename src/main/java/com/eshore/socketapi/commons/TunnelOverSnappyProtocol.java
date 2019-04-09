@@ -27,6 +27,7 @@ public class TunnelOverSnappyProtocol extends TunnelProtocol {
 				a.setDatas(or);
 			} catch (IOException e) {
 				System.out.println(a.getDatas().length);
+				System.out.println(new String(a.getDatas()));
 				e.printStackTrace();
 			}
 		}
