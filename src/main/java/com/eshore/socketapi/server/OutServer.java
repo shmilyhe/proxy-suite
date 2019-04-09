@@ -14,10 +14,11 @@ public class OutServer implements Closeable{
 	public static void main(String[] args) {
 
 	}
+	 ServerSocket s ;
 	ClientWorker client ;
 	public OutServer(String id,String clientIp,int clientPort,int outPort,final GlobWorker gw) throws IOException{
 		RawProtocol p = new RawProtocol();
-		final ServerSocket s = new ServerSocket(outPort);
+		s= new ServerSocket(outPort);
 		ServerHandler hadler = new CommandHandler();
 		Thread accepter = new Thread(){
 			public void run(){
@@ -59,7 +60,7 @@ public class OutServer implements Closeable{
 	@Override
 	public void close() throws IOException {
 		// TODO Auto-generated method stub
-		client.close();
+		s.close();
 	}
 
 }
