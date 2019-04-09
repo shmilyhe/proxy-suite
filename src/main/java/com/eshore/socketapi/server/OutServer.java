@@ -1,5 +1,6 @@
 package com.eshore.socketapi.server;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,7 +9,7 @@ import java.util.UUID;
 import com.eshore.socketapi.commons.RawProtocol;
 import com.eshore.socketapi.commons.TunnelAction;
 
-public class OutServer {
+public class OutServer implements Closeable{
 
 	public static void main(String[] args) {
 
@@ -22,7 +23,7 @@ public class OutServer {
 			public void run(){
 				while(true){
 					Socket socket;
-					if(client==null)client=GlobWorker.getClientWork(id);
+					if(client==null||!client.isAvailable())client=GlobWorker.getClientWork(id);
 					try {
 						socket = s.accept();
 						if(client==null){
@@ -54,6 +55,11 @@ public class OutServer {
 		};
 		accepter.setDaemon(true);
 		accepter.start();
+	}
+	@Override
+	public void close() throws IOException {
+		// TODO Auto-generated method stub
+		client.close();
 	}
 
 }

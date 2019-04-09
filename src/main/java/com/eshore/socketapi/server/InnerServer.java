@@ -1,5 +1,6 @@
 package com.eshore.socketapi.server;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,15 +11,16 @@ import com.eshore.socketapi.commons.TunnelAction;
 import com.eshore.socketapi.commons.TunnelOverSnappyProtocol;
 import com.eshore.socketapi.commons.TunnelProtocol;
 
-public class InnerServer {
+public class InnerServer implements Closeable{
 
 	public static void main(String[] args) {
 
 	}
 
+	 ServerSocket s ;
 	public InnerServer(int outPort,final GlobWorker gw,final TunnelProtocol p) throws IOException{
 		System.out.println("starting Inner  Service...");
-		final ServerSocket s = new ServerSocket(outPort);
+		 s = new ServerSocket(outPort);
 		ServerHandler hadler = new CommandHandler();
 		Thread accepter = new Thread(){
 			public void run(){
@@ -44,6 +46,12 @@ public class InnerServer {
 	}
 	public InnerServer(int outPort,final GlobWorker gw) throws IOException{
 		this(outPort,gw,new TunnelOverSnappyProtocol());
+	}
+
+	@Override
+	public void close() throws IOException {
+		// TODO Auto-generated method stub
+		if(s!=null)s.close();
 	}
 
 }

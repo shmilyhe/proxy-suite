@@ -77,7 +77,9 @@ public class GlobWorker {
 		}
 		
 		public static ClientWorker getClientWork(String clientId){
-			return cache.get(clientId);
+			ClientWorker w =cache.get(clientId);
+			if(w==null||!w.isAvailable())return null;
+			return w;
 		}
 		
 		public static void addClient(String clientId,ClientWorker w){
