@@ -1,6 +1,7 @@
 package com.eshore.socketapi.server;
 
 
+import com.eshore.khala.utils.Login;
 import com.eshore.socketapi.commons.Action;
 import com.eshore.socketapi.commons.TunnelAction;
 
@@ -47,7 +48,12 @@ public class CommandHandler implements ServerHandler {
 				if("id".equals(kv[0]))id=kv[1];
 				else if("token".equals(kv[0]))token=kv[1];
 			}
-			if(id!=null)GlobWorker.addClient(id, worker);
+			if(Login.login(token)){
+				if(id!=null)GlobWorker.addClient(id, worker);
+			}else{
+				worker.close();
+				System.out.println("非法登陆！");
+			}
 			
 		}else if("s".equals(a.getAction())){
 			worker.close();

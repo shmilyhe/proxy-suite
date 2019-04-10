@@ -3,6 +3,7 @@ package com.eshore.socketapi.server;
 import java.io.IOException;
 import java.net.Socket;
 
+import com.eshore.khala.utils.Login;
 import com.eshore.socketapi.commons.IProtocol;
 import com.eshore.socketapi.commons.TunnelAction;
 /**
@@ -51,7 +52,7 @@ public class TunnelClientWorker extends ClientWorker{
 
 
 	public String getToken() {
-		return token;
+		return Login.getToken();
 	}
 
 
@@ -61,7 +62,7 @@ public class TunnelClientWorker extends ClientWorker{
 	
 	
 	public void login(){
-		Call(new TunnelAction(5,("id="+id+";token="+token).getBytes()));
+		Call(new TunnelAction(5,("id="+id+";token="+getToken() ).getBytes()));
 	}
 
 	

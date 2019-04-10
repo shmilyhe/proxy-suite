@@ -16,13 +16,14 @@ public class OutServer implements Closeable{
 	}
 	 ServerSocket s ;
 	ClientWorker client ;
+	boolean shutdown;
 	public OutServer(String id,String clientIp,int clientPort,int outPort,final GlobWorker gw) throws IOException{
 		RawProtocol p = new RawProtocol();
 		s= new ServerSocket(outPort);
 		ServerHandler hadler = new CommandHandler();
 		Thread accepter = new Thread(){
 			public void run(){
-				while(true){
+				while(!shutdown){
 					Socket socket;
 					if(client==null||!client.isAvailable())client=GlobWorker.getClientWork(id);
 					try {
@@ -60,6 +61,7 @@ public class OutServer implements Closeable{
 	@Override
 	public void close() throws IOException {
 		// TODO Auto-generated method stub
+		shutdown=true;
 		s.close();
 	}
 
