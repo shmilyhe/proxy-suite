@@ -42,7 +42,7 @@ public class TunnelClientWorker extends ClientWorker{
 
 
 	public String getId() {
-		return id;
+		return Login.getAccount();
 	}
 
 
@@ -62,7 +62,7 @@ public class TunnelClientWorker extends ClientWorker{
 	
 	
 	public void login(){
-		Call(new TunnelAction(5,("id="+id+";token="+getToken() ).getBytes()));
+		Call(new TunnelAction(5,("id="+getId()+";token="+getToken() ).getBytes()));
 	}
 
 	
