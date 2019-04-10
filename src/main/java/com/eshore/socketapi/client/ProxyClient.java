@@ -30,4 +30,12 @@ public class ProxyClient {
 		server.setReConnect(true);
 		server.setKeepWhileBreak(true);
 	}
+	
+	/**
+	 * 是否登陆成功
+	 * @return
+	 */
+	public boolean isLogon(){
+		return server.isLogon();
+	}
 }

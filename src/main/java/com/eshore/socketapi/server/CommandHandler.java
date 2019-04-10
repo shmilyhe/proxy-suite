@@ -50,7 +50,9 @@ public class CommandHandler implements ServerHandler {
 			}
 			if(Login.login(token)){
 				if(id!=null)GlobWorker.addClient(id, worker);
+				return new TunnelAction(3,new byte[0]);
 			}else{
+				worker.Call(new TunnelAction(7,new byte[0]));
 				worker.close();
 				System.out.println("非法登陆！");
 			}

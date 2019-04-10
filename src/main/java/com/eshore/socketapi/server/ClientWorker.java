@@ -341,4 +341,25 @@ public class ClientWorker {
 	public void setDockid(String dockid) {
 		this.dockid = dockid;
 	}
+	public boolean isLogon() {
+		return logon;
+	}
+	public void setLogon(boolean logon) {
+		this.logon = logon;
+	}
+	public String getLoginNotice() {
+		return loginNotice;
+	}
+	public void setLoginNotice(String loginNotice) {
+		this.loginNotice = loginNotice;
+	}
+	/**
+	 * 是否登陆成功
+	 */
+	private boolean logon;
+	
+	/**
+	 * 登陆通知
+	 */
+	private String loginNotice;
 }

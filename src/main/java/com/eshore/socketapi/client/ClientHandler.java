@@ -92,6 +92,17 @@ public class ClientHandler implements ServerHandler {
 			}
 			worker.close();
 			return null;
+		}else if("a".equals(url)){
+			//登陆成功
+			worker.setLogon(true);
+			worker.setLoginNotice("logoned");
+			System.out.println("登陆成功");
+			return null;
+		}else if("f".equals(url)){
+			//登陆失败
+			worker.setLoginNotice("failed to logon!");
+			System.out.println("登陆失败");
+			return null;
 		}
 		
 		/**
