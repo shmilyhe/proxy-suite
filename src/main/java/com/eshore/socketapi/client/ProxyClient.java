@@ -23,8 +23,8 @@ public class ProxyClient {
 		Socket s = new Socket(ip,port);
 		ClientHandler handle= new ClientHandler(gw,p);
 		server =new TunnelClientWorker( s, handle,p,gw);
-		server.setId("default");
-		server.setToken("1");
+		//server.setId("default");
+		//server.setToken("1");
 		gw.addClientWorker(server);
 		server.login();
 		server.setReConnect(true);
