@@ -3,6 +3,9 @@ package com.eshore.socketapi.commons;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 /**
  * 简单的传输协议
  *
@@ -13,7 +16,7 @@ import java.io.OutputStream;
  *
  */
 public class RawProtocol implements IProtocol {
-	
+	static Log log=Logger.getLogger(RawProtocol.class);
 	public static void main(String args[]){
 		int v=20000;
 		int ch1=(v >>> 8) & 0xFF;
@@ -34,7 +37,7 @@ public class RawProtocol implements IProtocol {
 			//System.out.println(av);
 			if(av>20480)av=20480;
 			if(av<=0){
-				System.out.println("raw read empty!");
+				log.warm("raw read empty!");
 				return a;
 			}
 			byte b[] = new byte[av];
@@ -56,7 +59,7 @@ public class RawProtocol implements IProtocol {
 		byte b[]=action.getDatas();
 		if(b==null){
 			b=new byte[0]; 
-			System.out.println("error:"+action.getAction());
+			//System.out.println("error:"+action.getAction());
 		}
 		//System.out.println("w:"+new String(b));
 		out.write(b);

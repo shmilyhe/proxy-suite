@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.xerial.snappy.Snappy;
+
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 /**
  * 简单的传输协议
  * Snappy压缩
@@ -16,7 +19,7 @@ import org.xerial.snappy.Snappy;
  *
  */
 public class TunnelOverSnappyProtocol extends TunnelProtocol {
-
+	static Log log=Logger.getLogger(TunnelOverSnappyProtocol.class);
 	@Override
 	public Action read(InputStream ins) {
 		Action a=super.read(ins);
@@ -26,9 +29,8 @@ public class TunnelOverSnappyProtocol extends TunnelProtocol {
 				byte[] or = Snappy.uncompress(a.getDatas());
 				a.setDatas(or);
 			} catch (IOException e) {
-				System.out.println(a.getDatas().length);
-				System.out.println(new String(a.getDatas()));
-				e.printStackTrace();
+				log.error("fail to uncompress ,data length :\t",a.getDatas().length,"\t contents:",new String(a.getDatas()));
+				//e.printStackTrace();
 			}
 		}
 		return a;

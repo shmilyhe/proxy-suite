@@ -4,8 +4,9 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Map;
-import java.util.Map.Entry;
+
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 /**
  * 简单的传输协议
  *
@@ -16,7 +17,7 @@ import java.util.Map.Entry;
  *
  */
 public class TunnelProtocol implements IProtocol {
-	
+	static Log log=Logger.getLogger(TunnelProtocol.class);
 	public static void main(String args[]){
 		int v=20030;
 		int ch1=(v >>> 8) & 0xFF;
@@ -80,7 +81,8 @@ public class TunnelProtocol implements IProtocol {
 		Action a = null;
 		try {
 			if(ins.available()<=0){
-				System.out.println("tunnel read empty!");
+				//System.out.println("tunnel read empty!");
+				log.warm("tunnel read empty!");
 			}
 			int type=ins.read();
 			a= new TunnelAction(type);
