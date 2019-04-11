@@ -87,10 +87,19 @@ public class GlobWorker {
 			return w;
 		}
 		
+		/**
+		 * 添加客户端
+		 * @param clientId 客户端名称
+		 * @param w 客户端
+		 */
 		public static void addClient(String clientId,ClientWorker w){
 			cache.put(clientId, w);
 		}
 		
+		/**
+		 * 获取所有已连接上来的客户端
+		 * @return 连接客户端
+		 */
 		public static Collection<ClientWorker> allClients(){
 			return cache.values();
 		}
