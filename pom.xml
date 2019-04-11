@@ -4,7 +4,7 @@
 
 	<groupId>io.github.shmilyhe</groupId>
 	<artifactId>proxy-suite</artifactId>
-	<version>1.2.4</version>
+	<version>1.2.7</version>
 	<packaging>jar</packaging>
 	<description>a Intranet-through project</description>
 	<name>io.github.shmilyhe:proxy-suite</name>
