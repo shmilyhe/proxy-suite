@@ -4,6 +4,8 @@ package com.eshore.socketapi.server;
 import com.eshore.khala.utils.Login;
 import com.eshore.socketapi.commons.Action;
 import com.eshore.socketapi.commons.TunnelAction;
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 
 /**
  * 一个处理客户端的标准范例
@@ -12,7 +14,7 @@ import com.eshore.socketapi.commons.TunnelAction;
  *
  */
 public class CommandHandler implements ServerHandler {
-
+	static Log log=Logger.getLogger(CommandHandler.class);
 	@Override
 	public Action handle(Action a,ClientWorker worker) {
 		if(a==null)return null;
@@ -50,11 +52,14 @@ public class CommandHandler implements ServerHandler {
 			}
 			if(Login.login(token)){
 				if(id!=null)GlobWorker.addClient(id, worker);
+				log.info("登陆成功！ip:",worker.getIp(),"id:",id);
 				return new TunnelAction(3,new byte[0]);
 			}else{
+				log.warm("非法登陆！ip:",worker.getIp(),"id:",id,"token:",token);
 				worker.Call(new TunnelAction(7,new byte[0]));
 				worker.close();
-				System.out.println("非法登陆！");
+				
+				//System.out.println("非法登陆！");
 			}
 			
 		}else if("s".equals(a.getAction())){

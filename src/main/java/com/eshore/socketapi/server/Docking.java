@@ -5,8 +5,11 @@ import java.util.Collection;
 
 import com.eshore.khala.utils.LRUCache;
 import com.eshore.socketapi.commons.IProtocol;
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 
 public class Docking {
+	static Log log=Logger.getLogger(Docking.class);
 	static LRUCache<String,Docking> cache=new LRUCache<String,Docking> (1000);
 	static{
 		/**
@@ -66,7 +69,9 @@ public class Docking {
 	
 	public static Docking getDocking(String id){
 		Docking doc = cache.get(id);
-		if(doc==null)System.out.println("==============find empty============="+id);
+		if(doc==null){
+			log.warm("find empty! sid:",id);
+		}
 		return doc;
 	}
 	

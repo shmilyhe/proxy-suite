@@ -14,8 +14,11 @@ import com.eshore.socketapi.server.ClientWorker;
 import com.eshore.socketapi.server.GlobWorker;
 import com.eshore.socketapi.server.ServerHandler;
 import com.eshore.socketapi.server.TunnelClientWorker;
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 
 public class ClientHandler implements ServerHandler {
+	static Log log=Logger.getLogger(ClientHandler.class);
 	 IProtocol sproto=new TunnelProtocol();
 	static IProtocol dproto=new RawProtocol();
 
@@ -43,7 +46,7 @@ public class ClientHandler implements ServerHandler {
 			byte[] data=a.getDatas();
 			String[] datas=new String(data).split(":");
 			try {
-				System.out.println("c:"+datas[2]);
+				log.debug("received from server sid:",datas[2]);
 				Socket s = new Socket(datas[0],Integer.parseInt(datas[1]));
 				s.setOOBInline(false);
 				//s.sendUrgentData(data);
@@ -67,7 +70,8 @@ public class ClientHandler implements ServerHandler {
 				sw.Call(ta);
 				
 			} catch (IOException e) {
-				System.out.println(datas[0]+"=="+datas[1]);
+				//System.out.println(datas[0]+"=="+datas[1]);
+				log.debug("can't create connection :",datas[0],":",datas[1]);
 				try{
 					Socket ss= new Socket(worker.getIp(),worker.getPort());
 					ss.setOOBInline(false);
@@ -96,12 +100,12 @@ public class ClientHandler implements ServerHandler {
 			//登陆成功
 			worker.setLogon(true);
 			worker.setLoginNotice("logoned");
-			System.out.println("登陆成功");
+			log.info("登陆成功");
 			return null;
 		}else if("f".equals(url)){
 			//登陆失败
 			worker.setLoginNotice("failed to logon!");
-			System.out.println("登陆失败");
+			log.info("登陆失败");
 			return null;
 		}
 		

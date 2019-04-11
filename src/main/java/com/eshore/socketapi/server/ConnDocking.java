@@ -1,7 +1,10 @@
 package com.eshore.socketapi.server;
 
-public class ConnDocking extends Docking {
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 
+public class ConnDocking extends Docking {
+	static Log log=Logger.getLogger(ConnDocking.class);
 	GlobWorker gw;
 	public ConnDocking(String id,GlobWorker gw){
 		this.gw=gw;
@@ -23,7 +26,7 @@ public class ConnDocking extends Docking {
 		if(isConnected())return;
 		this.setConnected(true);
 		getOut().close();
-		System.out.println("====time out===");
+		log.warm("docking time out");
 	}
 	
 	

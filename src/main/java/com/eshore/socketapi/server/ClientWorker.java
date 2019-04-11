@@ -4,16 +4,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import com.eshore.socketapi.commons.Action;
 import com.eshore.socketapi.commons.IProtocol;
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 /**
  * 每个一个连接对应一个这样的独立worker
  * @author eshore
  *
  */
 public class ClientWorker {
+	static Log log=Logger.getLogger(ClientWorker.class);
 	public String getIp() {
 		return ip;
 	}
@@ -174,7 +176,9 @@ public class ClientWorker {
 						}
 					}
 				}
-				System.out.println("-->["+this.getName()+"]"+ip+":"+port+" ERROR:"+e.getMessage()+"\r\n action:"+action+"\r\n"+ds);
+				
+				log.error("-->[",this.getName(),"]",ip,":",port," ERROR:",e.getMessage(),"\r\n action:",action,"\r\n",ds);
+				//System.out.println("-->["+this.getName()+"]"+ip+":"+port+" ERROR:"+e.getMessage()+"\r\n action:"+action+"\r\n"+ds);
 				
 				//e.printStackTrace();
 				available=false;

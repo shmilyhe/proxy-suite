@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.eshore.khala.utils.LRUCache;
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 
 public class GlobWorker {
+	static Log log=Logger.getLogger(GlobWorker.class);
 	ArrayList<ClientWorker> clientList= new ArrayList<ClientWorker>();
 	static LRUCache<String,ClientWorker> cache=new LRUCache<String,ClientWorker> (1000);
 	 int changeCount=0;
@@ -36,7 +39,7 @@ public class GlobWorker {
 		public void updateWorkerList(){
 			try{
 				ArrayList<ClientWorker>list2 =removeNotavailable(clientList);
-				System.out.println("共回收"+(clientList.size()-list2.size())+"个连接！"+changeCount);
+				log.info("Recycles ",(clientList.size()-list2.size())," connections！",changeCount);
 				changeCount=0;
 				clientList=list2;
 			}catch(Exception e){}
@@ -47,7 +50,8 @@ public class GlobWorker {
 			for(ClientWorker w:list){
 				if(w.isAvailable()||w.isKeepWhileBreak())list2.add(w);
 				else{
-					System.out.println("client exit ! ip:"+w.ip+":"+w.port);
+					log.info("Recycling ",w.ip,":",w.port);
+					//System.out.println("client exit ! ip:"+w.ip+":"+w.port);
 				}
 			}
 			return list2;

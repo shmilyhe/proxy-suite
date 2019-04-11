@@ -4,22 +4,21 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.UUID;
 
-import com.eshore.socketapi.commons.RawProtocol;
-import com.eshore.socketapi.commons.TunnelAction;
 import com.eshore.socketapi.commons.TunnelOverSnappyProtocol;
 import com.eshore.socketapi.commons.TunnelProtocol;
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 
 public class InnerServer implements Closeable{
-
+	static Log log=Logger.getLogger(InnerServer.class);
 	public static void main(String[] args) {
 
 	}
 
 	 ServerSocket s ;
 	public InnerServer(int outPort,final GlobWorker gw,final TunnelProtocol p) throws IOException{
-		System.out.println("starting Inner  Service...");
+		log.info("Starting Inner  Service...");
 		 s = new ServerSocket(outPort);
 		ServerHandler hadler = new CommandHandler();
 		Thread accepter = new Thread(){
@@ -42,7 +41,7 @@ public class InnerServer implements Closeable{
 		};
 		accepter.setDaemon(true);
 		accepter.start();
-		System.out.println("done.");
+		log.info("Done.");
 	}
 	public InnerServer(int outPort,final GlobWorker gw) throws IOException{
 		this(outPort,gw,new TunnelOverSnappyProtocol());
