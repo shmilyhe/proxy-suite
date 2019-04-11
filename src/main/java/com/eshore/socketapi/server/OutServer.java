@@ -60,7 +60,8 @@ public class OutServer implements Closeable{
 						
 						//gw.addClientWorker(new ClientWorker(socket,hadler,p,gw));
 					} catch (IOException e) {
-						e.printStackTrace();
+						//e.printStackTrace();
+						log.error(e);
 					}
 					
 				}
