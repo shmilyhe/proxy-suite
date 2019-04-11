@@ -256,6 +256,15 @@ public class ClientWorker {
 	}
 	
 	private Action[] respQueue=null; 
+	
+	/**
+	 * 读取一个数据包
+	 * @return action
+	 */
+	protected Action read(){
+		return protocol.read(in);
+	}
+	
 	/**
 	 * 处理接收的数据
 	 * @return
@@ -291,7 +300,7 @@ public class ClientWorker {
 				return false;
 			}
 			//System.out.println("work av:"+av);
-			a =protocol.read(in);
+			a =read();//protocol.read(in);
 			Action response =serverHandler.handle(a,this);
 			if(response!=null)
 				if(!response.isTunnel()){//是否需要转发

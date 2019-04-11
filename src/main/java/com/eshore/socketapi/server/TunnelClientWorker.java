@@ -6,13 +6,15 @@ import java.net.Socket;
 import com.eshore.khala.utils.Login;
 import com.eshore.socketapi.commons.IProtocol;
 import com.eshore.socketapi.commons.TunnelAction;
+import com.eshore.tools.Log;
+import com.eshore.tools.Logger;
 /**
  * 每个一个连接对应一个这样的独立worker
  * @author eshore
  *
  */
 public class TunnelClientWorker extends ClientWorker{
-	
+	static Log log=Logger.getLogger(TunnelClientWorker.class);
 	/**
 	 * 创建一个worker
 	 * @param s 对端的socket
@@ -72,10 +74,10 @@ public class TunnelClientWorker extends ClientWorker{
 		//System.out.println("==reConnect==");
 		if(super.reConnct()){
 			this.login();
-			System.out.println("reconnected!");
+			log.info("reconnected!");
 			return true;
 		}
-		System.out.println("reconnect failed!");
+		log.warm("reconnect failed!");
 		return false;
 	}
 

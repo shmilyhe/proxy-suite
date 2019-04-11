@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import com.eshore.socketapi.commons.RawProtocol;
 import com.eshore.socketapi.commons.TunnelAction;
+import com.eshore.socketapi.flow.Flow;
 import com.eshore.tools.Log;
 import com.eshore.tools.Logger;
 
@@ -32,6 +33,8 @@ public class OutServer implements Closeable{
 		RawProtocol p = new RawProtocol();
 		s= new ServerSocket(outPort);
 		ServerHandler hadler = new CommandHandler();
+		//int outPort,int innerPort, String innerIp,String clientName
+		final Flow flow = new Flow(outPort,clientPort,clientIp,id);
 		Thread accepter = new Thread(){
 			public void run(){
 				while(!shutdown){
@@ -47,7 +50,9 @@ public class OutServer implements Closeable{
 						String url=clientIp+":"+clientPort+":"+conid;
 						TunnelAction ta = new TunnelAction(1,url.getBytes());
 						ConnDocking cdk = new ConnDocking(conid,gw);
-						cdk.setOut(new TunnelClientWorker(socket,hadler,p,gw));
+						OutterTunnelClientWorker  otc = new OutterTunnelClientWorker(socket,hadler,p,gw);
+						otc.setFlow(flow);
+						cdk.setOut(otc);
 						//cdk.getOut().setHoldding(true);
 						cdk.getOut().setName("front");
 						/*cdk.setHandle(hadler);
