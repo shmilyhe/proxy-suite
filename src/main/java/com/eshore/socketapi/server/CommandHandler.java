@@ -52,6 +52,7 @@ public class CommandHandler implements ServerHandler {
 			}
 			if(Login.login(token)){
 				if(id!=null)GlobWorker.addClient(id, worker);
+				worker.setName(id);
 				log.info("登陆成功！ip:",worker.getIp(),"id:",id);
 				return new TunnelAction(3,new byte[0]);
 			}else{

@@ -1,6 +1,7 @@
 package com.eshore.socketapi.server;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.eshore.khala.utils.LRUCache;
@@ -88,6 +89,10 @@ public class GlobWorker {
 		
 		public static void addClient(String clientId,ClientWorker w){
 			cache.put(clientId, w);
+		}
+		
+		public static Collection<ClientWorker> allClients(){
+			return cache.values();
 		}
 		
 		
