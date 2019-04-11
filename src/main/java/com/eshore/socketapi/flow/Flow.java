@@ -1,5 +1,6 @@
 package com.eshore.socketapi.flow;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,6 +23,15 @@ public class Flow {
 		this.clientName=clientName;
 		addFlow(this);
 	}
+	
+	/**
+	 * 获取端口的流量
+	 * @param port 端口
+	 * @return 流量
+	 */
+	public static Flow getFlowByPort(int port){
+		return cache.get(""+port);
+	} 
 	
 	/**
 	 * 添加流量管理
@@ -51,6 +61,7 @@ public class Flow {
 	
 	
 	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
@@ -62,7 +73,8 @@ public class Flow {
 		.append("read:").append(read).append(",")
 		.append("write:").append(write).append(",")
 		.append("readRate:").append(this.readPerS()).append(",")
-		.append("writeRate:").append(this.writePerS()).append("")
+		.append("writeRate:").append(this.writePerS()).append(",")
+		.append("createTime:\"").append(sdf.format(createTime)).append("\"")
 		.append("}");
 		return sb.toString();
 	}
