@@ -21,7 +21,6 @@ public class Client {
 		this.port=port;
 		out = s.getOutputStream();
 		in =s.getInputStream();
-		
 	}
 	
 	private Socket s;
