@@ -49,16 +49,20 @@ public class OutServer implements Closeable{
 						String conid=UUID.randomUUID().toString();
 						String url=clientIp+":"+clientPort+":"+conid;
 						TunnelAction ta = new TunnelAction(1,url.getBytes());
-						ConnDocking cdk = new ConnDocking(conid,gw);
+						//ConnDocking cdk = new ConnDocking(conid,gw);
 						OutterTunnelClientWorker  otc = new OutterTunnelClientWorker(socket,hadler,p,gw);
+						otc.setDockid(conid);
 						otc.setFlow(flow);
-						cdk.setOut(otc);
+						otc.setOutClinet(client);
+						gw.addClientWorker(otc);
+						CommandHandler.clients.put(conid, otc);
+						//cdk.setOut(otc);
 						//cdk.getOut().setHoldding(true);
-						cdk.getOut().setName("front");
+						//cdk.getOut().setName("front");
 						/*cdk.setHandle(hadler);
 						cdk.setProtocol(p);
 						cdk.setSocket(socket);*/
-						ConnDocking.addDocking(cdk);
+						//ConnDocking.addDocking(cdk);
 						//cdk.
 						//System.out.println("acc:"+conid);
 						client.Call(ta);

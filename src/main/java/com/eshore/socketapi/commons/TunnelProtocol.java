@@ -86,14 +86,26 @@ public class TunnelProtocol implements IProtocol {
 			}
 			int type=ins.read();
 			a= new TunnelAction(type);
-			int len =readUnsignedShort(ins);
-			if(len==0){
-				a.setDatas(new byte[0]);
-				return a;
+			{
+				int len =readUnsignedShort(ins);
+				if(len==0){
+					a.setConnId(null);
+					//return a;
+				}
+				byte b[] = new byte[len];
+				ins.read(b);
+				a.setConnId(new String(b));
 			}
-			byte b[] = new byte[len];
-			ins.read(b);
-			a.setDatas(b);
+			{
+				int len =readUnsignedShort(ins);
+				if(len==0){
+					a.setDatas(new byte[0]);
+					return a;
+				}
+				byte b[] = new byte[len];
+				ins.read(b);
+				a.setDatas(b);
+			}
 			//System.out.println("ta rec:"+new String(a.getDatas()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -112,6 +124,14 @@ public class TunnelProtocol implements IProtocol {
 			return;
 		}
 		out.write(ta.type);
+		if(action.getConnId()==null){
+			writeShort(out,0);
+		}else{
+			byte [] id=action.getConnId().getBytes();
+			writeShort(out,id.length);
+			out.write(id);
+		}
+		
 		byte b[]=ta.getDatas();
 		//System.out.println("ta:"+new String(ta.getDatas()));
 		if(b==null||b.length==0){

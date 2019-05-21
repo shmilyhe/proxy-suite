@@ -15,6 +15,8 @@ public class Action {
 	private String token;//权限令牌，做权限认证时
 	private byte datas[];//传输的数据
 	private Map ext=new HashMap();//额外的属性
+	private String connId;
+	private int type;//0,tunnel 1,raw
 	boolean tunnel;
 	
 	public boolean isTunnel() {
@@ -81,6 +83,22 @@ public class Action {
 
 	public void setRemoveIp(String removeIp) {
 		this.removeIp = removeIp;
+	}
+
+	public String getConnId() {
+		return connId;
+	}
+
+	public void setConnId(String connId) {
+		this.connId = connId;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 	

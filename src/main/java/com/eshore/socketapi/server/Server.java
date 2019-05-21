@@ -22,7 +22,7 @@ public class Server {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			new Server(3000,new TestServerHandler(),new SimpleProtocol(),4);
+			new Server(3000,new TestServerHandler(),new SimpleProtocol(),Runtime.getRuntime().availableProcessors());
 			System.out.println("服务端启动成功");
 			while(true)
 				try {

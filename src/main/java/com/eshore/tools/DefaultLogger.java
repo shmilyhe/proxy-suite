@@ -52,11 +52,17 @@ public class DefaultLogger implements Log {
 		System.err.print("[ERROR]\t");
 		System.err.print(className);
 		System.err.print("\t");
+		Throwable e=null;
 		if(a!=null)
 		for(Object o:a){
+			if(o instanceof Throwable){
+				e=(Throwable) o;
+				continue;
+			}
 			System.err.print(o);
 		}
 		System.err.println();
+		if(e!=null)e.printStackTrace();
 	}
 	
 	public static void main(String args[]){
@@ -66,7 +72,7 @@ public class DefaultLogger implements Log {
 	@Override
 	public void debug(Object... a) {
 		// TODO Auto-generated method stub
-		if(true)return;
+		//if(true)return;
 		
 		System.out.print(sdf.format(new Date()));
 		System.out.print("\t");

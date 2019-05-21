@@ -16,6 +16,7 @@ import com.eshore.tools.Logger;
  */
 public class ClientWorker {
 	static Log log=Logger.getLogger(ClientWorker.class);
+	private boolean tunnel;
 	public String getIp() {
 		return ip;
 	}
@@ -149,7 +150,6 @@ public class ClientWorker {
 		try {
 			protocol.write(out, a);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			if(reConnect){
 				if( reConnct()){
 					try {
@@ -177,7 +177,7 @@ public class ClientWorker {
 					}
 				}
 				
-				log.error("-->[",this.getName(),"]",ip,":",port," ERROR:",e.getMessage(),"\r\n action:",action,"\r\n",ds);
+				log.error("-->[",this.getName(),"]",ip,":",port," ERROR:",e,"\r\n action:",action,"\r\n",ds);
 				//System.out.println("-->["+this.getName()+"]"+ip+":"+port+" ERROR:"+e.getMessage()+"\r\n action:"+action+"\r\n"+ds);
 				
 				//e.printStackTrace();
@@ -301,6 +301,11 @@ public class ClientWorker {
 			}
 			//System.out.println("work av:"+av);
 			a =read();//protocol.read(in);
+			if(a.getConnId()==null){
+				a.setConnId(this.getDockid());
+				a.setType(1);
+			}
+			
 			Action response =serverHandler.handle(a,this);
 			if(response!=null)
 				if(!response.isTunnel()){//是否需要转发
@@ -365,6 +370,12 @@ public class ClientWorker {
 	}
 	public void setLoginNotice(String loginNotice) {
 		this.loginNotice = loginNotice;
+	}
+	public boolean isTunnel() {
+		return tunnel;
+	}
+	public void setTunnel(boolean tunnel) {
+		this.tunnel = tunnel;
 	}
 	/**
 	 * 是否登陆成功

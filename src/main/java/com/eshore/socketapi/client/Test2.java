@@ -26,7 +26,8 @@ public class Test2 {
 		
 		
 		ProxyClient client = new ProxyClient("127.0.01",4100,gw);
-		
+		//ProxyClient client = new ProxyClient("192.168.199.130",4100,gw);
+		//ProxyClient client = new ProxyClient("70mm.cn",30099,gw);
 		new Thread(){
 			public void run(){
 				while(true){

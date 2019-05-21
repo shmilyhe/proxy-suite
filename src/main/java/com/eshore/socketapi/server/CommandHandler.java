@@ -1,6 +1,7 @@
 package com.eshore.socketapi.server;
 
 
+import com.eshore.khala.utils.LRUCache;
 import com.eshore.khala.utils.Login;
 import com.eshore.socketapi.commons.Action;
 import com.eshore.socketapi.commons.TunnelAction;
@@ -14,11 +15,22 @@ import com.eshore.tools.Logger;
  *
  */
 public class CommandHandler implements ServerHandler {
+	public static LRUCache<String,ClientWorker> clients= new LRUCache<String,ClientWorker> ();
 	static Log log=Logger.getLogger(CommandHandler.class);
 	@Override
 	public Action handle(Action a,ClientWorker worker) {
 		if(a==null)return null;
 		if("d".equals(a.getAction())){
+			//log.debug("d:",a.getConnId(),new String(a.getDatas()));
+			if(worker.isTunnel()){
+				ClientWorker c= clients.get(a.getConnId());
+				if(c==null){
+					log.warm("can't find client:",a.getConnId());
+				}
+				if(c!=null)c.Call(a);
+				return null;
+			}
+			//log.debug(worker.getOutClinet().isTunnel());
 			a.setTunnel(true);
 			return a;
 		} else if("c".equals(a.getAction())){
@@ -39,7 +51,17 @@ public class CommandHandler implements ServerHandler {
 			//worker.setName("inner-doc");
 			//doc.setIn(worker);
 			//doc.run();
-		}  else if("l".equals(a.getAction())){
+		}else if("e".equals(a.getAction())){
+			String id=a.getConnId();
+			ClientWorker c= clients.get(id);
+			if(c!=null){
+				clients.remove(id);
+				c.close();
+				log.warm("closed :",id);
+			}else{
+				log.warm("close front failed :",id);
+			}
+		}   else if("l".equals(a.getAction())){
 			String data =new String(a.getDatas());
 			String[] p=data.split(";");
 			String id=null;

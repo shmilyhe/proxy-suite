@@ -23,7 +23,7 @@ public class ProxyClient implements Closeable{
 	public ProxyClient(String ip,int port,GlobWorker gw,TunnelProtocol p) throws UnknownHostException, IOException{
 		s = new Socket(ip,port);
 		ClientHandler handle= new ClientHandler(gw,p);
-		server =new TunnelClientWorker( s, handle,p,gw);
+		server =new ConcurrentTunnelClientWorker( s, handle,p,gw);
 		//server.setId("default");
 		//server.setToken("1");
 		gw.addClientWorker(server);

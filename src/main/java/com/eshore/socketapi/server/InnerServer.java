@@ -27,7 +27,7 @@ public class InnerServer implements Closeable{
 					Socket socket;
 					try {
 						socket = s.accept();
-						TunnelClientWorker cw =	new TunnelClientWorker(socket,hadler,p,gw);
+						TunnelClientWorker cw =	new ConcurrentTunnelClientWorker(socket,hadler,p,gw);
 						cw.setName("inner");
 						gw.addClientWorker(cw);
 						//GlobWorker.addClient(clientId, w);
