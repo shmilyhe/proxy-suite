@@ -95,7 +95,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.eshore.cli.App</mainClass>
+							<mainClass>io.shmilyhe.cli.App</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
